@@ -61,7 +61,7 @@ const onConnection = (socket: any) => {
 };
 
 const io = require("socket.io")(http, {
-    path: "/socket.io",
+    path: "/",
     pingInterval: 10 * 1000,
     pingTimeout: 5000,
     transports: ["websocket"]
