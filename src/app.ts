@@ -53,21 +53,5 @@ app.use(
  */
 // app.get("/", homeController.index);
 
-const onConnection = (socket: any) => {
-    socket.on("drawing", (data: any) => {
-        console.log(data);
-        return socket.broadcast.emit("drawing", data);
-    });
-};
-
-const io = require("socket.io")(http, {
-    path: "/",
-    pingInterval: 10 * 1000,
-    pingTimeout: 5000,
-    transports: ["polling"]
-});
-
-io.on("connection", onConnection);
-http.listen(process.env.WS_PORT || 3231, () => console.log("listening on port " + process.env.WS_PORT || 3231));
 
 export default app;
