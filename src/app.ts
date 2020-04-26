@@ -55,7 +55,7 @@ app.use(
 
 const onConnection = (socket: any) => {
     socket.on("drawing", (data: any) => {
-        // console.log(data);
+        console.log(data);
         return socket.broadcast.emit("drawing", data);
     });
 };
