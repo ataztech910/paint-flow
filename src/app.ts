@@ -68,6 +68,6 @@ const io = require("socket.io")(http, {
 });
 
 io.on("connection", onConnection);
-http.listen(5000, () => console.log("listening on port " + 5000));
+http.listen(process.env.PORT || 3231, () => console.log("listening on port " + process.env.PORT || 3231));
 
 export default app;
