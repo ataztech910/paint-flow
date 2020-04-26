@@ -21,11 +21,6 @@ console.log(SESSION_SECRET);
 const app = express();
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
-var path ='/stomp';
-var sio_server = io(http, {
-    origins: "*",
-    path : path
-});
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
