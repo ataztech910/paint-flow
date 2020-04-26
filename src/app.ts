@@ -17,15 +17,8 @@ if (fs.existsSync(".env")) {
 
 // Create Express server
 const SESSION_SECRET = process.env["SESSION_SECRET"];
-console.log(SESSION_SECRET);
 const app = express();
 const http = require("http").Server(app);
-const io = require("socket.io")(http);
-var path ='/stomp';
-var sio_server = io(http, {
-    origins: "*",
-    path : path
-});
 
 // Express configuration
 app.set("port", process.env.PORT || 3000);
@@ -58,11 +51,25 @@ app.use(
 /**
  * Primary app routes.
  */
-app.get("/", homeController.index);
+// app.get("/", homeController.index);
 
 const onConnection = (socket: any) => {
-    socket.on("drawing", (data: any) => socket.broadcast.emit("drawing", data));
+    socket.on("drawing", (data: any) => {
+        console.log(data);
+        return socket.broadcast.emit("drawing", data);
+    });
 };
+
+const io = require("socket.io")(http, {
+    path: "/",
+    serveClient: false,
+    // below are engine.IO options
+    pingInterval: 10000,
+    pingTimeout: 5000,
+    cookie: false
+});
+
 io.on("connection", onConnection);
+http.listen(5000, () => console.log("listening on port " + 5000));
 
 export default app;
